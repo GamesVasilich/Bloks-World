@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocks World | Главная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #55ff55;
+            --accent: #bb86fc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Ubuntu', sans-serif;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .pixel-font { font-family: 'Press+Start+2P', cursive; }
+
+        #auth-screen, #main-screen {
+            display: none;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        .input-group { margin-bottom: 25px; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: var(--accent); font-size: 0.8em; font-weight: bold; }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: white;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--primary); }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(37, 117, 252, 0.5); }
+
+        nav {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav a { color: white; text-decoration: none; font-size: 0.7em; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+
+        #email-confirm { display: none; margin-top: 20px; }
+
+        .logout-btn {
+            margin-top: 30px;
+            background: rgba(255, 85, 85, 0.2);
+            border: 1px solid #ff5555;
+            padding: 10px 25px;
+            border-radius: 8px;
+            color: #ff5555;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="auth-screen">
+        <div class="glass-card">
+            <h1 class="pixel-font" style="font-size: 1.2em; margin-bottom: 30px; color: var(--primary);">BLOCKS WORLD</h1>
+            <div id="reg-form">
+                <div class="input-group">
+                    <label>НИКНЕЙМ</label>
+                    <input type="text" id="reg-nick" placeholder="Steve">
+                </div>
+                <div class="input-group">
+                    <label>EMAIL</label>
+                    <input type="email" id="reg-email" placeholder="mail@example.com">
+                </div>
+                <button class="btn" onclick="sendCode()">ОТПРАВИТЬ КОД</button>
+            </div>
+            <div id="email-confirm">
+                <p style="font-size: 0.8em; color: var(--primary);">Код: 777888</p>
+                <div class="input-group">
+                    <label>КОД ИЗ ПИСЬМА</label>
+                    <input type="text" id="confirm-code" placeholder="******">
+                </div>
+                <button class="btn" style="background: var(--primary); color: #000;" onclick="verifyAndLogin()">ВОЙТИ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-screen" style="flex-direction: column; justify-content: flex-start;">
+        <nav class="pixel-font">
+            <a href="#">ГЛАВНАЯ</a>
+            <a href="dukomintation.html">ДОКУМЕНТАЦИЯ</a>
+            <a href="account.html">ЛИЧНЫЙ КАБИНЕТ</a>
+        </nav>
+        <div style="margin-top: 100px; text-align: center;">
+            <h1 class="pixel-font" style="font-size: 2.5em;">BLOCKS WORLD</h1>
+            <p style="font-size: 1.2em; color: var(--accent);">С возвращением, <span id="user-display" style="color: var(--primary);"></span>!</p>
+            <div class="glass-card" style="margin: 40px auto; max-width: 600px;">
+                <p>Вы успешно авторизованы. Данные синхронизированы.</p>
+                <button class="logout-btn" onclick="logout()">ВЫЙТИ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('bw_logged_in');
+            const savedNick = localStorage.getItem('bw_nick');
+            if (isLoggedIn === 'true') {
+                showMainScreen(savedNick);
+            } else {
+                document.getElementById('auth-screen').style.display = 'flex';
+            }
+        };
+
+        function sendCode() {
+            const email = document.getElementById('reg-email').value;
+            const nick = document.getElementById('reg-nick').value;
+            if (email.includes('@') && nick.length > 2) {
+                document.getElementById('reg-form').style.display = 'none';
+                document.getElementById('email-confirm').style.display = 'block';
+            } else { alert("Заполни данные!"); }
+        }
+
+        function verifyAndLogin() {
+            const code = document.getElementById('confirm-code').value;
+            const nick = document.getElementById('reg-nick').value;
+            const email = document.getElementById('reg-email').value;
+            if (code === "777888") {
+                localStorage.setItem('bw_logged_in', 'true');
+                localStorage.setItem('bw_nick', nick);
+                localStorage.setItem('bw_email', email);
+                showMainScreen(nick);
+            } else { alert("Неверный код!"); }
+        }
+
+        function showMainScreen(nick) {
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('main-screen').style.display = 'flex';
+            document.getElementById('user-display').innerText = nick;
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
