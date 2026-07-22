@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocks World | Главная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="script.js" defer></script>
+
+    <link rel="stylesheet" href="dit.css" />
+
+</head>
+<body>
+    <div id="auth-screen">
+        <div class="glass-card">
+            <h1 class="pixel-font" style="font-size: 1.2em; margin-bottom: 30px; color: var(--primary);">BLOCKS WORLD</h1>
+            <div id="reg-form">
+                <div class="input-group">
+                    <label>ИМЯ</label>
+                    <input type="text" id="reg-nick" placeholder="player">
+                </div>
+                <div class="input-group">
+                    <label>EMAIL</label>
+                    <input type="email" id="reg-email" placeholder="player@gmail.com">
+                </div>
+                <div class="input-group">
+                    <label>пароль</label>
+                    <input type="password" id="reg-paroll">
+                </div>
+                <button class="btn" onclick="sendCode()">ЗАРИГИСТРИРОВАТСЯ</button>
+            </div>
+
+            <div id="email-confirm">
+                <p style="font-size: 0.8em; color: var(--primary);">код отправлен на ваш email</p>
+                <div class="input-group">
+                    <label>КОД ИЗ ПИСЬМА</label>
+                    <input type="text" id="confirm-code" placeholder="******">
+                </div>
+                <button class="btn" style="background: var(--primary); color: #000;" onclick="verifyAndLogin()">ВОЙТИ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-screen" style="flex-direction: column; justify-content: flex-start;">
+        <nav class="pixel-font">
+            <a href="shop/">МАГАЗИН</a>
+            <a href="dukomintation/">ДОКУМЕНТАЦИЯ</a>
+            <!--<a href="account/">ЛИЧНЫЙ КАБИНЕТ</a>-->
+        </nav>
+        <div style="margin-top: 100px; text-align: center;">
+            <h1 class="pixel-font" style="font-size: 2.5em;">BLOCKS WORLD</h1>
+            <p style="font-size: 1.2em; color: var(--accent);">С возвращением, <span id="user-display" style="color: var(--primary);"></span>!</p>
+            <div class="glass-card" style="margin: 40px auto; max-width: 600px;">
+                <p>Вы успешно авторизованы. Данные синхронизированы.</p>
+                <button class="logout-btn" onclick="logout()">ВЫЙТИ</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
